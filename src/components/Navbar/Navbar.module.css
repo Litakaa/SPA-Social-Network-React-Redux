@@ -1,0 +1,17 @@
+.nav {
+    grid-area: n;
+    background-color: #dee2e6;;
+    padding: 18px;
+    font-family: "Book Antiqua";
+}
+.item {
+    color: #777d74;
+    font-size: 15px;
+    text-decoration: none;
+}
+.active {
+    color: #50b5ff;
+    font-size: 20px;
+    text-decoration: none;
+}
+
