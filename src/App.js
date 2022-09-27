@@ -5,7 +5,6 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Diallogs/DialogsContainer";
-import NavbarContainer from "./components/Navbar/NavbarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -13,6 +12,7 @@ import Login from "./components/Login/Login";
 import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import Navbar from "./components/Navbar/Navbar";
 
 
 class App extends React.Component {
@@ -26,7 +26,7 @@ class App extends React.Component {
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
-                <NavbarContainer/>
+                <Navbar/>
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>

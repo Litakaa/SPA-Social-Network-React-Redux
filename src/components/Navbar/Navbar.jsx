@@ -1,15 +1,10 @@
 import React from "react";
 import classes from './../Navbar/Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import Friends from "./Saitbar/Friends";
-import AddNavbarForm from "./AddNavbarForm/AddNavbarForm";
+
 
 const Navbar = (props) => {
-    let state = props.saitBarPage;
-    let friendsElement = state.saitBar.map(f => <Friends name = {f.name} key = {f.id} id = {f.id}/>)
-    let addSendMessageSaitBar = (values) => {
-        props.sendMessageSaitBar(values.newMessageSaitBar);
-    }
+
     return (
         <nav className={classes.nav}>
             <div>
@@ -40,8 +35,7 @@ const Navbar = (props) => {
                 <NavLink to="/profile"
                          className={navData => navData.isActive ? classes.active : classes.item}> Friends</NavLink>
             </div>
-            <div>{friendsElement}</div>
-            <AddNavbarForm onSubmit={addSendMessageSaitBar}/>
+
         </nav>
     );
 }
