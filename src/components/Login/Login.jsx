@@ -1,33 +1,24 @@
 import React from "react";
-import {Field, reduxForm} from "redux-form";
-import {Input} from "../common/FormsControls/FormsControls";
+import {reduxForm} from "redux-form";
+import {CreateField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import classes from "../common/FormsControls/FormsControls.module.css";
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={"Email"}
+        <form onSubmit={handleSubmit}>
+            {CreateField("Email", [required], "email", Input)}
+            {/*<Field placeholder={"Email"}
                        validate={[required]}
                        name={"email"}
-                       component={Input}/>
-            </div>
-            <div>
-                <Field placeholder={"Password"}
-                       validate={[required]}
-                       name={"password"}
-                       type ={"password"}
-                       component={Input}/>
-            </div>
-            <div>
-                <Field component={Input} name={"rememberMe"} type={"checkbox"}/> remember me
-            </div>
-            {props.error && <div className={classes.formSummaryError}>
-                {props.error}
+                       component={Input}/>*/}
+            {CreateField("Password", [required], "password", Input, {type: "password"})}
+            {CreateField(null, [], "rememberMe", Input, {type: "checkbox"}, "remember Me")}
+            {error && <div className={classes.formSummaryError}>
+                {error}
             </div>
             }
             <div>
@@ -36,14 +27,13 @@ const LoginForm = (props) => {
         </form>
     );
 }
-
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 
-const Login = (props) => {
+const Login = ({login, isAuth}) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe);
+        login(formData.email, formData.password, formData.rememberMe);
     }
-    if (props.isAuth) return <Navigate to= {"/profile"}/>
+    if (isAuth) return <Navigate to={"/profile"}/>
 
     return (
         <div>

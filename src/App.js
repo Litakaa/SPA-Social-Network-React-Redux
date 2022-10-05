@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -9,25 +9,21 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {connect, Provider} from "react-redux";
+import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import Navbar from "./components/Navbar/Navbar";
-import store from "./redux/redux-store";
 
 
 class App extends React.Component {
     componentDidMount() {
         this.props.initializeApp();
     }
-
     render() {
         if (!this.props.initialized) {
             return <Preloader/>
         }
         return (
-            <BrowserRouter>
-                <Provider store={store}>
                     <div className='app-wrapper'>
                         <HeaderContainer/>
                         <Navbar/>
@@ -45,8 +41,6 @@ class App extends React.Component {
                             </Routes>
                         </div>
                     </div>
-                </Provider>
-            </BrowserRouter>
         );
     }
 }

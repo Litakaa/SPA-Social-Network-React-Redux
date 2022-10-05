@@ -18,15 +18,14 @@ import {
 } from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
-
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
-
     onPageChanged = (p) => {
-        this.props.getUsers(p, this.props.pageSize);
+        const {pageSize} = this.props;
+        this.props.getUsers(p, pageSize);
     }
-
     render() {
         return (
             <>
