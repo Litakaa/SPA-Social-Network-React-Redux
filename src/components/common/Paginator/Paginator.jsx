@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import classes from "./Paginator.module.css";
+import cn from "classnames";
 
 const Paginator = ({currentPage, onPageChanged, pageSize, totalUsersCount, portionSize = 10}) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -20,7 +21,8 @@ const Paginator = ({currentPage, onPageChanged, pageSize, totalUsersCount, porti
             {pages
                 .filter(p=> p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(p => {
-                return <span className={currentPage === p && classes.selectedPage}
+                return <span className={cn({
+                    [classes.selectedPage]:currentPage === p}, classes.pageNumber)}
                              key={p}
                              onClick={(e) => { onPageChanged(p); }}>{p}</span>
             })}
