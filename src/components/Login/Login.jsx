@@ -17,7 +17,7 @@ const LoginForm = ({handleSubmit, error}) => {
                        component={Input}/>*/}
             {CreateField("Password", [required], "password", Input, {type: "password"})}
             {CreateField(null, [], "rememberMe", Input, {type: "checkbox"}, "remember Me")}
-            {error && <div className={classes.formSummaryError}>
+            { error && <div className={classes.formSummaryError}>
                 {error}
             </div>
             }
