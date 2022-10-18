@@ -34,7 +34,6 @@ class ProfileContainer extends React.Component {
             this.refreshProfile();
         }
     }
-
     render() {
         return (
             <div>
@@ -49,7 +48,6 @@ class ProfileContainer extends React.Component {
         );
     }
 }
-
 const mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
