@@ -1,6 +1,6 @@
 import * as React from "react";
 import './App.css';
-import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
+import {Route, Routes, Navigate, BrowserRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -10,10 +10,10 @@ import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import Navbar from "./components/Navbar/Navbar";
-import store, {AppStateType} from "./redux/redux-store"
+import {AppStateType, store} from "./redux/redux-store"
 import UsersContainer from "./components/Users/UsersContainer";
 import {Component, Suspense} from "react";
-import {compose} from "redux";
+
 
 const DialogsContainer = React.lazy(() => import("./components/Diallogs/DialogsContainer"));
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
@@ -23,17 +23,23 @@ type DispatchPropsType = {
     initializeApp: () => void
 }
 
-class App extends Component<MapPropsType & DispatchPropsType> {
-    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
-        /*console.error(promiseRejectionEvent);*/
+export class App extends Component<MapPropsType & DispatchPropsType> {
+
+    catchAllUnhandledErrors = (
+        promiseRejectionEvent: PromiseRejectionEvent) => {
+        console.log('Some error')
+        console.log(promiseRejectionEvent)
     }
     componentDidMount() {
         this.props.initializeApp();
-        window.addEventListener("sggsgshf", this.catchAllUnhandledErrors);
+        window.addEventListener('unhandledrejection',
+            this.catchAllUnhandledErrors)
     }
+
     componentWillUnmount() {
-        window.removeEventListener("sggsgshf", this.catchAllUnhandledErrors);
-    }
+    window.removeEventListener('unhandledrejection',
+        this.catchAllUnhandledErrors)
+}
 
     render() {
         if (!this.props.initialized) {
@@ -44,16 +50,16 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                     <HeaderContainer/>
                     <Navbar/>
                     <div className='app-wrapper-content'>
-                        <Suspense fallback={<div><Preloader /></div>}>
+                        <Suspense fallback={<Preloader />}>
                             <section>
                                 <Routes>
-                                    <Route path="/*" element={<Navigate to={"/profile"}/>}/>
+                                    <Route path="/" element={<Navigate to={"/profile"}/>}/>
                                     <Route path="/dialogs/" element={<DialogsContainer/>}/>
                                     <Route path="/profile" element={<ProfileContainer/>}>
                                         <Route path=":userId" element={<ProfileContainer/>}/>
                                     </Route>
                                     <Route path="/users" element={<UsersContainer/>}/>
-                                    <Route path="/news/*" element={<News/>}/>
+                                    <Route path="/news/" element={<News/>}/>
                                     <Route path="/music" element={<Music/>}/>
                                     <Route path="/settings" element={<Settings/>}/>
                                     <Route path="/login" element={<Login/>}/>
@@ -72,14 +78,14 @@ const mapStateToProps = (state: AppStateType) => {
         initialized: state.app.initialized
     }
 }
-const AppContainer =  compose<React.ComponentType>(
-    connect(mapStateToProps, {initializeApp})(App))
+const AppContainer = connect(mapStateToProps, {initializeApp})(App)
 
-const MainApp: React.FC = () => {
-    return <BrowserRouter>
+ const MainApp: React.FC = () => {
+    return  <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
     </BrowserRouter>
 }
 export default MainApp;
+

@@ -14,13 +14,13 @@ let state = {
 };
 
 test('length of posts should be incremented', () => {
-    let action = actions.addPostActionCreator("Yuliaaaaa1q11");
+    let action = actions.addPost("Yuliaaaaa1q11");
     let newState = profileReducer(state,action);
     expect(newState.posts.length).toBe(5);
 });
 
 test('message of new posts should be correct', () => {
-    let action = actions.addPostActionCreator("Yuliaaaaa1q11");
+    let action = actions.addPost("Yuliaaaaa1q11");
     let newState = profileReducer(state,action);
     expect(newState.posts[4].message).toBe("Yuliaaaaa1q11");
 });

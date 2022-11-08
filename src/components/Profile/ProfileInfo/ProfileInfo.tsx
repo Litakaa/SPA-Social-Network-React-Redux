@@ -12,7 +12,7 @@ import {ProfileType} from "../../../types/types";
 import profile from "../Profile";
 
 type PropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status:string)=>void
     isOwner: boolean

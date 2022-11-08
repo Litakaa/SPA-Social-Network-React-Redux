@@ -3,16 +3,17 @@ import * as React from "react";
 import classes from './../Header/Header.module.css';
 import {NavLink} from "react-router-dom";
 
-type PropsType= {
+export type MapStatePropsType= {
     login: string
-    email: string
     userId: number
     isAuth: boolean
+
+}
+export type MapDispatchPropsType = {
     logout: () => void
 }
 
-
-const Header: React.FC<PropsType> = (props) => {
+const Header: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     return (
         <header className={classes.header}>
             <img
@@ -24,13 +25,7 @@ const Header: React.FC<PropsType> = (props) => {
                     ? <div> {props.login} - <button onClick={props.logout}>Log out</button> </div>
                     : <NavLink to={'/Login'}>Login</NavLink>
                 }
-                <div>
-                    <span>Email: </span>
-                    {props.isAuth
-                        ? props.email
-                        : <NavLink to={'/Login'}>Login</NavLink>
-                    }
-                </div>
+
             </div>
         </header>
     );

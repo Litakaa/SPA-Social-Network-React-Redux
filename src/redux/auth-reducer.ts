@@ -1,8 +1,9 @@
 import {ResultCodeForCaptcha, ResultCodesEnum} from "../API/api";
 import {FormAction, stopSubmit} from "redux-form";
 import {BaseThunkType, InferActionsType} from "./redux-store";
+import authAPI from '../API/authAPI'
 import {securityAPI} from "../API/securityAPI";
-import {authAPI} from "../API/authAPI";
+
 
 
 let initialState = {
@@ -49,10 +50,10 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     return async (dispatch) => {
         const loginData = await authAPI.login(email, password, rememberMe, captcha)
         if (loginData.resultCode === ResultCodesEnum.Success) {
-            dispatch(authUserData());
+            await dispatch(authUserData());
         } else {
             if (loginData.resultCode === ResultCodeForCaptcha.CaptchaISRequired) {
-                dispatch(getCaptchaUrl());
+                await dispatch(getCaptchaUrl());
             }
             const message = loginData.messages.length > 0 ? loginData.messages[0] : "Some error"
             dispatch(stopSubmit("login", {_error: message}));

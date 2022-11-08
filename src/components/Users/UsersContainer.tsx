@@ -61,7 +61,7 @@ class UsersContainer extends React.Component<PropsType>{
     }
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -69,11 +69,11 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingProgress: getFollowingProgress(state)
-    }
+    } as MapStatePropsType
 }
 
 export default compose<React.ComponentType>(
-    connect<MapStatePropsType, MapDispatchPropsType, AppStateType>
+    connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>
 (mapStateToProps, {follow, unFollow, getUsers: requestUsers}))(UsersContainer);
 
 

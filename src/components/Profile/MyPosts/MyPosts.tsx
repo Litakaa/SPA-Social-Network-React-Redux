@@ -5,8 +5,11 @@ import Post from "./Post/Post";
 import AddPostForm from "./AddPostForm/AddPostForm";
 import {PostType} from "../../../types/types";
 
-type PropsType = {
+export type MapStatePropsType = {
     posts: Array<PostType>
+
+}
+export type MapDispatchPropsType = {
     addPost: (newPostText: string) => void
 }
 
@@ -14,7 +17,7 @@ export type NewPostFormType = {
     newPostText: string
 }
 
-const MyPosts: React.FC<PropsType> = (props) => {
+const MyPosts: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     let postsElement = [...props.posts]
         .reverse()
         .map((p => <Post message={p.message} key={p.id} likeCounts={p.likeCount}/>));

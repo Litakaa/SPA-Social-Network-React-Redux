@@ -1,9 +1,10 @@
-import React from "react";
+import * as React from "react";
+// @ts-ignore
 import classes from './../Navbar/Navbar.module.css';
 import {NavLink} from "react-router-dom";
 
 
-const Navbar = (props) => {
+const Navbar: React.FC = () => {
 
     return (
         <nav className={classes.nav}>

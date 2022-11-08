@@ -11,8 +11,7 @@ let initialState = {
         {id: 4, message: 'Hi', likeCount: 25}
     ] as Array<PostType>,
     profile: null as ProfileType | null,
-    status: "",
-    newPostText: ""
+    status: ""
 }
 export type InitialStateType = typeof initialState
 type ProfileActionsTypes = InferActionsType<typeof actions>
